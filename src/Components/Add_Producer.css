@@ -1,0 +1,24 @@
+.input-container{
+    display: flex;
+    justify-content: center;
+    margin-top:100px;
+}
+.input-box{
+    margin-top:4%;
+    width:70%;
+}.dob-box{
+    display: flex;
+    flex-direction: row;
+}
+.dob-input{
+    margin: 0 5%;
+}
+@media only screen and (max-width: 900px){
+    .input-container{
+        margin-top:70px ;
+    }
+    .input-box{
+        margin-top:4%;
+        width:50%;
+    }
+}

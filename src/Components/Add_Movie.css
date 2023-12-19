@@ -1,0 +1,27 @@
+.input-container{
+    display: flex;
+    justify-content: center;
+    margin-top:100px;
+}
+.movie-input-box{
+    margin-top:4%;
+    width:70%;
+}
+.actor-input{
+    width:100%;
+}
+.add-new-actor{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.add-new-producer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+@media only screen and (max-width: 900px){
+    .input-container{
+        margin-top:70px ;
+    }
+}
