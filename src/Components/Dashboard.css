@@ -7,11 +7,6 @@
     padding-bottom: 8%;
     background-image: radial-gradient( circle 763px at 18.3% 24.1%,  rgba(255,249,137,1) 7.4%, rgba(226,183,40,1) 58.3% );
 }
-@media only screen and (max-width: 900px){
-    .home-container{
-        margin-top:70px ;
-    }
-}
 .searched-content{
     width: 100%;
     padding: 3%;
@@ -77,4 +72,9 @@
         border-bottom-color:1px solid rgb(245, 63, 7); 
         border-left-color: 1px solid rgb(245, 63, 7); 
     } 
+}
+@media only screen and (max-width: 900px){
+    .home-container{
+        margin-top:70px ;
+    }
 }

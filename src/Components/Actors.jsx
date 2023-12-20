@@ -73,7 +73,7 @@ const Actors = () => {
             <div className="searched-content">
               {actors.map((val, index) => (
                 <div className="searched-data">
-                  {val.name.toLowerCase().includes(search.toLowerCase())  && (
+                  {val.name.toLowerCase().includes(search.toLowerCase()) && (
                     <ActorsCard key={index} data={val} />
                   )}
                 </div>
@@ -86,7 +86,9 @@ const Actors = () => {
               </div>
               <div className="actor-container">
                 {actors.length ? (
-                  actors.map((val, index) => <ActorsCard key={index} data={val} />)
+                  actors.map((val, index) => (
+                    <ActorsCard key={index} data={val} />
+                  ))
                 ) : (
                   <div>
                     {actors.length <= 0 ? <p>No data found.</p> : <p></p>}

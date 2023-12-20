@@ -119,20 +119,20 @@ const Add_Movie = () => {
     );
   };
 
-// Function for Modal
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-//Actor Modal
-const [open, setOpen] = React.useState(false);
+  // Function for Modal
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+  //Actor Modal
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let [actName, setActName] = useState("");
@@ -151,12 +151,12 @@ const [open, setOpen] = React.useState(false);
       return 1;
     }
     const newActor = {
-      name:actName,
-      gender:actGender,
-      dob:actDob,
-      age:actAge,
-      bio:actBio,
-      img:actImg,
+      name: actName,
+      gender: actGender,
+      dob: actDob,
+      age: actAge,
+      bio: actBio,
+      img: actImg,
     };
     const response = await axios.post(`${api_url}/actor/add-actor`, newActor, {
       headers: {
@@ -187,27 +187,38 @@ const [open, setOpen] = React.useState(false);
   async function postNewProducer() {
     let Age = Date.now() - new Date(actDob).getTime();
     let age_dt = new Date(Age);
-    setActAge(Math.abs(age_dt.getUTCFullYear() - 1970));
-    if (!prodName || !prodGender || !prodDob || !prodAge || !prodBio || !prodImg) {
+    setProdAge(Math.abs(age_dt.getUTCFullYear() - 1970));
+    if (
+      !prodName ||
+      !prodGender ||
+      !prodDob ||
+      !prodAge ||
+      !prodBio ||
+      !prodImg
+    ) {
       alert("Please Fill all the field");
       return 1;
     }
     const newProducer = {
-      name:prodName,
-      gender:prodGender,
-      dob:prodDob,
-      age:prodAge,
-      bio:prodBio,
-      img:prodImg,
+      name: prodName,
+      gender: prodGender,
+      dob: prodDob,
+      age: prodAge,
+      bio: prodBio,
+      img: prodImg,
     };
-    const response = await axios.post(`${api_url}/producer/add-producer`, newProducer, {
-      headers: {
-        "x-auth": token,
-      },
-    });
+    const response = await axios.post(
+      `${api_url}/producer/add-producer`,
+      newProducer,
+      {
+        headers: {
+          "x-auth": token,
+        },
+      }
+    );
 
     const data = response.data;
-    if (!data.data) {
+    if (!data.message === "Movie Added successfully") {
       setError(data.message);
     } else {
       navigate("/");
@@ -215,83 +226,79 @@ const [open, setOpen] = React.useState(false);
   }
   return (
     <Base>
-    <Modal
+      <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <div className="input-box">
-          <h1>Add Actors</h1>
-          <TextField
-            label="Name"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Enter Actor Name"
-            value={actName}
-            onChange={(e) => setActName(e.target.value)}
-            type="text"
-          />
-          <TextField
-            label="Gender"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Mention Gender"
-            value={actGender}
-            onChange={(e) => setActGender(e.target.value)}
-            type="text"
-          />
-          <br />
-          <div className="dob-box">
-            <label>
-              <h4>DOB</h4>
-            </label>
-            <input
-              className="dob-input"
-              type="date"
-              name="dob"
-              value={actDob}
-              onChange={(e) => setActDob(e.target.value)}
+          <div className="input-box">
+            <h1>Add Actors</h1>
+            <TextField
+              label="Name"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Enter Actor Name"
+              value={actName}
+              onChange={(e) => setActName(e.target.value)}
+              type="text"
             />
+            <TextField
+              label="Gender"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Mention Gender"
+              value={actGender}
+              onChange={(e) => setActGender(e.target.value)}
+              type="text"
+            />
+            <br />
+            <div className="dob-box">
+              <label>
+                <h4>DOB</h4>
+              </label>
+              <input
+                className="dob-input"
+                type="date"
+                name="dob"
+                value={actDob}
+                onChange={(e) => setActDob(e.target.value)}
+              />
+            </div>
+            <br />
+            <TextField
+              label="Bio"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Enter Actors Name"
+              type="text"
+              value={actBio}
+              onChange={(e) => setActBio(e.target.value)}
+            />
+            <TextField
+              label="Image"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Enter Image Url"
+              type="text"
+              value={actImg}
+              onChange={(e) => setActImg(e.target.value)}
+            />
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={() => postNewActor()}
+            >
+              Add
+            </Button>
+            {error ? <Typography color={"danger"}>{error}</Typography> : ""}
           </div>
-          <br />
-          <TextField
-            label="Bio"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Enter Actors Name"
-            type="text"
-            value={actBio}
-            onChange={(e) => setActBio(e.target.value)}
-          />
-          <TextField
-            label="Image"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Enter Image Url"
-            type="text"
-            value={actImg}
-            onChange={(e) => setActImg(e.target.value)}
-          />
-          <Button
-            onClick={handleClose}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={() => postNewActor()}
-          >
-            Add
-          </Button>
-          {error ? <Typography color={"danger"}>{error}</Typography> : ""}
-        </div>
         </Box>
       </Modal>
 
@@ -302,76 +309,72 @@ const [open, setOpen] = React.useState(false);
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <div className="input-box">
-          <h1>Add Producer</h1>
-          <TextField
-            label="Name"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Enter Actor Name"
-            value={prodName}
-            onChange={(e) => setProdName(e.target.value)}
-            type="text"
-          />
-          <TextField
-            label="Gender"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Mention Gender"
-            value={prodGender}
-            onChange={(e) => setProdGender(e.target.value)}
-            type="text"
-          />
-          <br />
-          <div className="dob-box">
-            <label>
-              <h4>DOB</h4>
-            </label>
-            <input
-              className="dob-input"
-              type="date"
-              name="dob"
-              value={prodDob}
-              onChange={(e) => setProdDob(e.target.value)}
+          <div className="input-box">
+            <h1>Add Producer</h1>
+            <TextField
+              label="Name"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Enter Actor Name"
+              value={prodName}
+              onChange={(e) => setProdName(e.target.value)}
+              type="text"
             />
+            <TextField
+              label="Gender"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Mention Gender"
+              value={prodGender}
+              onChange={(e) => setProdGender(e.target.value)}
+              type="text"
+            />
+            <br />
+            <div className="dob-box">
+              <label>
+                <h4>DOB</h4>
+              </label>
+              <input
+                className="dob-input"
+                type="date"
+                name="dob"
+                value={prodDob}
+                onChange={(e) => setProdDob(e.target.value)}
+              />
+            </div>
+            <br />
+            <TextField
+              label="Bio"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Enter Actors Name"
+              type="text"
+              value={prodBio}
+              onChange={(e) => setProdBio(e.target.value)}
+            />
+            <TextField
+              label="Image"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Enter Image Url"
+              type="text"
+              value={prodImg}
+              onChange={(e) => setProdImg(e.target.value)}
+            />
+            <Button onClick={handleCloseShow}>Cancel</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={() => postNewProducer()}
+            >
+              Add
+            </Button>
+            {error ? <Typography color={"danger"}>{error}</Typography> : ""}
           </div>
-          <br />
-          <TextField
-            label="Bio"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Enter Actors Name"
-            type="text"
-            value={prodBio}
-            onChange={(e) => setProdBio(e.target.value)}
-          />
-          <TextField
-            label="Image"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Enter Image Url"
-            type="text"
-            value={prodImg}
-            onChange={(e) => setProdImg(e.target.value)}
-          />
-          <Button
-            onClick={handleCloseShow}
-          >
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={() => postNewActor()}
-          >
-            Add
-          </Button>
-          {error ? <Typography color={"danger"}>{error}</Typography> : ""}
-        </div>
         </Box>
       </Modal>
       <div className="input-container row">
@@ -427,65 +430,65 @@ const [open, setOpen] = React.useState(false);
             onChange={(e) => setPoster(e.target.value)}
           />
           <div className="add-new-actor">
-          <FormControl sx={{ m: 1 }} className="actor-input">
-            <InputLabel id="demo-multiple-chip-label">Actors</InputLabel>
-            <Select
-              labelId="demo-multiple-chip-label"
-              id="demo-multiple-chip"
-              multiple
-              value={personName}
-              onChange={(e) => handleChange(e.target.value)}
-              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-              renderValue={(selected) => (
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
-                </Box>
-              )}
-              MenuProps={MenuProps}
+            <FormControl sx={{ m: 1 }} className="actor-input">
+              <InputLabel id="demo-multiple-chip-label">Actors</InputLabel>
+              <Select
+                labelId="demo-multiple-chip-label"
+                id="demo-multiple-chip"
+                multiple
+                value={personName}
+                onChange={(e) => handleChange(e.target.value)}
+                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                renderValue={(selected) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value} />
+                    ))}
+                  </Box>
+                )}
+                MenuProps={MenuProps}
+              >
+                {actors.map((name) => (
+                  <MenuItem
+                    key={name}
+                    value={name}
+                    style={getStyles(name, personName, theme)}
+                  >
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={handleOpen}
+              className="add-new-actor-button"
             >
-              {actors.map((name) => (
-                <MenuItem
-                  key={name}
-                  value={name}
-                  style={getStyles(name, personName, theme)}
-                >
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={handleOpen}
-            className="add-new-actor-button"
-          >
-            Add Actor
-          </Button>
+              Add Actor
+            </Button>
           </div>
           <div className="add-new-producer">
-          <TextField
-            label="Producer"
-            variant="outlined"
-            fullWidth
-            sx={{ m: 1 }}
-            placeholder="Enter the Producer Name"
-            type="text"
-            value={producer}
-            onChange={(e) => setProducer(e.target.value)}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={handleOpenShow}
-            className="add-new-producer-button"
-          >
-            Add Producer
-          </Button>
+            <TextField
+              label="Producer"
+              variant="outlined"
+              fullWidth
+              sx={{ m: 1 }}
+              placeholder="Enter the Producer Name"
+              type="text"
+              value={producer}
+              onChange={(e) => setProducer(e.target.value)}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={handleOpenShow}
+              className="add-new-producer-button"
+            >
+              Add Producer
+            </Button>
           </div>
-          <br/>
+          <br />
           <Button
             type="submit"
             variant="contained"

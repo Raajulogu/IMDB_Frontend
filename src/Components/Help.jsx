@@ -12,14 +12,14 @@ const Help = () => {
               Click On the Movie or Actor or Producer Card to Know More Details
               about them
             </li>
-            <br/>
+            <br />
             <li>
               Click Add Actor or Add Producer to Add a Actor or Producer during
               Adding Movie
             </li>
-            <br/>
+            <br />
             <li>Click Edit button to Edit Movie</li>
-            <br/>
+            <br />
             <li>Click Dlete Button to Delete Movie</li>
           </ol>
         </div>

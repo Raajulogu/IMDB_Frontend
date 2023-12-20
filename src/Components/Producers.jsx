@@ -32,11 +32,14 @@ const Producers = () => {
     //Fetching data
     let fetchAllData = async () => {
       try {
-        const response = await axios.get(`${api_url}/producer/get-all-producer`, {
-          headers: {
-            "x-auth": token,
-          },
-        });
+        const response = await axios.get(
+          `${api_url}/producer/get-all-producer`,
+          {
+            headers: {
+              "x-auth": token,
+            },
+          }
+        );
         setProducers(response.data.producer);
       } catch (error) {
         console.error("Error In Fetching Data:", error);
@@ -48,7 +51,7 @@ const Producers = () => {
 
   return (
     <Base>
-      { producers && (
+      {producers && (
         <div className="home-container">
           <div className="search-container">
             <TextField
@@ -86,7 +89,9 @@ const Producers = () => {
               </div>
               <div className="producer-container">
                 {producers.length ? (
-                  producers.map((val, index) => <ProducerCard key={index} data={val} />)
+                  producers.map((val, index) => (
+                    <ProducerCard key={index} data={val} />
+                  ))
                 ) : (
                   <div>
                     {producers.length <= 0 ? <p>No data found.</p> : <p></p>}
@@ -129,4 +134,4 @@ const ProducerCard = ({ data }) => {
     </Card>
   );
 };
-export default Producers
+export default Producers;

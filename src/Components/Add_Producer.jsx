@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Base from "../Base/Base";
 import { Button, IconButton, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -25,11 +25,15 @@ const Add_Producer = () => {
   }
   let token = localStorage.getItem("token");
 
-  //Post a New Producer in server
-  async function postNewProducer() {
+  //calculate age on change of DOB
+  useEffect(() => {
     let Age = Date.now() - new Date(dob).getTime();
     let age_dt = new Date(Age);
     setAge(Math.abs(age_dt.getUTCFullYear() - 1970));
+  }, [dob]);
+
+  //Post a New Producer in server
+  async function postNewProducer() {
     if (!name || !gender || !dob || !age || !bio || !img) {
       alert("Please Fill all the field");
       return 1;
@@ -42,14 +46,18 @@ const Add_Producer = () => {
       bio,
       img,
     };
-    const response = await axios.post(`${api_url}/producer/add-producer`, newActor, {
-      headers: {
-        "x-auth": token,
-      },
-    });
+    const response = await axios.post(
+      `${api_url}/producer/add-producer`,
+      newActor,
+      {
+        headers: {
+          "x-auth": token,
+        },
+      }
+    );
 
     const data = response.data;
-    if (!data.data) {
+    if (!data.message === "Producer Added successfully") {
       setError(data.message);
     } else {
       navigate("/");
@@ -133,4 +141,4 @@ const Add_Producer = () => {
   );
 };
 
-export default Add_Producer
+export default Add_Producer;

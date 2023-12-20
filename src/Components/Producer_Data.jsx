@@ -72,15 +72,12 @@ const Producer_Data = () => {
               </p>
               <h2>Movies:</h2>
               <div className="producer-movie-data-container">
-              {movies.map((val) => (
-                <div className="producer-movie-data">
-                    <img
-                    src={val.poster} alt=""
-                    className="producer-movie"
-                    />
+                {movies.map((val) => (
+                  <div className="producer-movie-data">
+                    <img src={val.poster} alt="" className="producer-movie" />
                     <p>{val.name}</p>
-                </div>
-              ))}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -90,4 +87,4 @@ const Producer_Data = () => {
   );
 };
 
-export default Producer_Data
+export default Producer_Data;

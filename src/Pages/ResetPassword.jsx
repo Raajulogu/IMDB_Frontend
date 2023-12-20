@@ -8,7 +8,6 @@ import emailjs from "emailjs-com";
 import { useNavigate } from "react-router-dom";
 import asserts from "../assert";
 
-
 //Backend URL
 const api_url = asserts.backend_url;
 
@@ -78,7 +77,7 @@ const Email = ({ value, setValue }) => {
       name: user.name,
       from_name: "rajeshkumarlogu145@gamil.com",
       message_html: msg,
-      app:"IMDB"
+      app: "IMDB",
     };
     await emailjs.send("service_5tm7opw", "template_ebkvuvq", templateParams);
     setEncrypt(msg);

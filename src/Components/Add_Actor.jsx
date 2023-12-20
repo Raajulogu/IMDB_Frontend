@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Base from "../Base/Base";
 import { Button, IconButton, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -25,11 +25,14 @@ const Add_Actor = () => {
   }
   let token = localStorage.getItem("token");
 
-  //Post a New Actor in server
-  async function postNewActor() {
+  //calculate age on change of DOB
+  useEffect(() => {
     let Age = Date.now() - new Date(dob).getTime();
     let age_dt = new Date(Age);
     setAge(Math.abs(age_dt.getUTCFullYear() - 1970));
+  }, [dob]);
+  //Post a New Actor in server
+  async function postNewActor() {
     if (!name || !gender || !dob || !age || !bio || !img) {
       alert("Please Fill all the field");
       return 1;
@@ -49,7 +52,7 @@ const Add_Actor = () => {
     });
 
     const data = response.data;
-    if (!data.data) {
+    if (!data.message === "Actor Added successfully") {
       setError(data.message);
     } else {
       navigate("/");

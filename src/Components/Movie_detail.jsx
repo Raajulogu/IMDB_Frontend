@@ -37,7 +37,7 @@ const Movie_detail = () => {
     };
     //Calling fetch function
     fetchAllData();
-    console.log(actors)
+    console.log(actors);
   }, []);
 
   return (
@@ -69,15 +69,12 @@ const Movie_detail = () => {
               </p>
               <h2>Actors</h2>
               <div className="movie-actors-data-container">
-              {actors.map((val) => (
-                <div className="movie-actors-data">
-                    <img
-                    src={val.img} alt=""
-                    className="movie-actor"
-                    />
+                {actors.map((val) => (
+                  <div className="movie-actors-data">
+                    <img src={val.img} alt="" className="movie-actor" />
                     <p>{val.name}</p>
-                </div>
-              ))}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

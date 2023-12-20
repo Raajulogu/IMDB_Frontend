@@ -6,7 +6,6 @@ import { Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import asserts from "../assert";
 
-
 //Backend URL
 const api_url = asserts.backend_url;
 
@@ -32,10 +31,7 @@ const Login = () => {
   async function handleLogin(user) {
     setLoading(1);
     try {
-      let response = await axios.post(
-        `${api_url}/user/login`,
-        user
-      );
+      let response = await axios.post(`${api_url}/user/login`, user);
       localStorage.setItem("token", response.data.token);
       navigate("/");
     } catch {

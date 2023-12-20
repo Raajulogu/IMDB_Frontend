@@ -62,7 +62,7 @@ const Edit_Movie = () => {
     });
 
     const data = response.data;
-    if (!data.message==="Movie Edited successfully") {
+    if (!data.message === "Movie Edited successfully") {
       setError(data.message);
     } else {
       navigate("/");
@@ -92,22 +92,22 @@ const Edit_Movie = () => {
           `${api_url}/movie/get-movie-data-by-id`,
           {
             headers: {
-              "id": id,
+              id: id,
               "x-auth": token,
             },
           }
         );
-        
+
         setName(response.data.movie_Data.movie.name);
         setYear(response.data.movie_Data.movie.year);
         setProducer(response.data.movie_Data.movie.producer);
         setPoster(response.data.movie_Data.movie.poster);
         setPlot(response.data.movie_Data.movie.plot);
-        let temp=[]
-        for(var j=0;j<response.data.movie_Data.actors.length;j++){
-         temp.push(response.data.movie_Data.actors[j].name)
+        let temp = [];
+        for (var j = 0; j < response.data.movie_Data.actors.length; j++) {
+          temp.push(response.data.movie_Data.actors[j].name);
         }
-        handleChange({value:temp.join(",")})
+        handleChange({ value: temp.join(",") });
       } catch (error) {
         console.error("Error In Fetching Data:", error);
       }
@@ -138,8 +138,7 @@ const Edit_Movie = () => {
   }
   const theme = useTheme();
 
-
-  const handleChange = ({value}) => {
+  const handleChange = ({ value }) => {
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
@@ -205,7 +204,7 @@ const Edit_Movie = () => {
               id="demo-multiple-chip"
               multiple
               value={personName}
-              onChange={(e)=>handleChange({value:e.target.value})}
+              onChange={(e) => handleChange({ value: e.target.value })}
               input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
               renderValue={(selected) => (
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>

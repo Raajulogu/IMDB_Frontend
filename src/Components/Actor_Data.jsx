@@ -72,15 +72,12 @@ const Actor_Data = () => {
               </p>
               <h2>Movies:</h2>
               <div className="actors-movie-data-container">
-              {movies.map((val) => (
-                <div className="actors-movie-data">
-                    <img
-                    src={val.poster} alt=""
-                    className="actors-movie"
-                    />
+                {movies.map((val) => (
+                  <div className="actors-movie-data">
+                    <img src={val.poster} alt="" className="actors-movie" />
                     <p>{val.name}</p>
-                </div>
-              ))}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

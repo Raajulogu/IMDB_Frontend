@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Base from "../Base/Base";
 import {
-    Button,
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -49,12 +49,12 @@ const Dashboard = () => {
     };
     //Calling fetch function
     fetchAllData();
-    console.log(movies)
+    console.log(movies);
   }, []);
 
   return (
     <Base>
-      { movies && (
+      {movies && (
         <div className="home-container">
           <div className="search-container">
             <TextField
@@ -80,7 +80,7 @@ const Dashboard = () => {
               {movies.map((val, index) => (
                 <div className="searched-data">
                   {val.name.toLowerCase().includes(search.toLowerCase()) && (
-                    <Movies key={index} data={val}/>
+                    <Movies key={index} data={val} />
                   )}
                 </div>
               ))}
@@ -92,18 +92,10 @@ const Dashboard = () => {
               </div>
               <div className="movie-container">
                 {movies.length ? (
-                  movies.map((val, index) => (
-                    <Movies key={index} data={val} />
-                  ))
+                  movies.map((val, index) => <Movies key={index} data={val} />)
                 ) : (
                   <div>
-                    {movies.length <= 0 ? (
-                      <p>
-                        No data found.
-                      </p>
-                    ) : (
-                      <p></p>
-                    )}
+                    {movies.length <= 0 ? <p>No data found.</p> : <p></p>}
                   </div>
                 )}
               </div>
@@ -120,19 +112,16 @@ const Movies = ({ data, user }) => {
   let navigate = useNavigate();
 
   //Handle Delete Request
-  async function handleDelete(id ) {
-    let token= localStorage.getItem("token")
-    console.log(token)
+  async function handleDelete(id) {
+    let token = localStorage.getItem("token");
+    console.log(token);
     try {
-      const response = await axios.delete(
-        `${api_url}/movie/delete-movie`,
-        {
-          headers: {
-            "x-auth": token,
-            "id":id
-          },
-        }
-      );
+      await axios.delete(`${api_url}/movie/delete-movie`, {
+        headers: {
+          "x-auth": token,
+          id: id,
+        },
+      });
       setSnackmsg(`${data.name} Deleted Successfully`);
       handleClick();
     } catch (error) {
@@ -162,7 +151,7 @@ const Movies = ({ data, user }) => {
     <Card sx={{ maxWidth: 345, mb: 2 }} className="movie-cards">
       <CardMedia
         sx={{ height: 300, width: 300 }}
-        image={data.poster ? data.poster :""}
+        image={data.poster ? data.poster : ""}
         title={data.name}
         onClick={() => navigate(`/movie-data/${data._id}`)}
       />
@@ -184,19 +173,19 @@ const Movies = ({ data, user }) => {
         </Typography>
       </CardContent>
       <CardActions className="card-btns">
-      <Button
+        <Button
           color="primary"
           variant="contained"
           onClick={() => navigate(`/movie-edit/${data._id}`)}
         >
-            Edit
+          Edit
         </Button>
         <Button
           color="error"
           variant="contained"
-          onClick={() => handleDelete(data._id )}
+          onClick={() => handleDelete(data._id)}
         >
-            Delete
+          Delete
         </Button>
       </CardActions>
       <Stack spacing={2} sx={{ width: "100%" }}>
